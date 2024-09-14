@@ -1,10 +1,10 @@
-from DeafPolandStatistics.classes import *
+from classes import *
 from pymongo.database import Database
-from DeafPolandStatistics.helpers import *
+from helpers import *
 import datetime
 import pandas as pd
 import re
-from DeafPolandStatistics.enums import *
+from enums import *
 
 def mapFunction(collectionName, v, headers):
   name = v[headers[0]]
@@ -56,6 +56,7 @@ def insertTranslatorsDataFromExcel(fileName, mydb: Database, collectionName):
     transl.phone = v[headers[3]]
     transl.email = v[headers[4]]
     transl.levels_ids = clearLanguages(v[headers[5]], v)
+    clearAreas(v[headers[6]])
   
   # dictList = [mapFunction(collectionName, v, headers).dict() for v in dfDict]
   # mydb[collectionName].insert_many(dictList)
@@ -111,3 +112,6 @@ def returnDictLanguageAndLevel(languages, languagesToCheck, firstIndex, secondIn
   level = clearLevel(level)
 
   return {'langauge': languages[indexL], 'level': level}
+
+def clearAreas(areas):
+  print(areas)
