@@ -1,27 +1,21 @@
-from helpers import *
+from DeafPolandStatistics.helpers import *
+import datetime
 
 class Translator():
-  def __init__(
-      self,
-      name, 
-      surname, 
-      # dataOfEntry, 
-      certificate, 
-      voivodeships_ids,
-      powiaty_ids,
-      cities_ids,
-      expiryDate,
-      sources_ids,
-      ):
-    self.name = name
-    self.surname = surname
-    # self.dataOfEntry = dataOfEntry
-    self.certificate = certificate
-    self.voivodeships_ids = voivodeships_ids
-    self.powiaty_ids = powiaty_ids
-    self.cities_ids = cities_ids
-    self.expiryDate = expiryDate
-    self.sources_ids = sources_ids
+  def __init__(self):
+    self.names = []
+    self.surname = ''
+    self.phone = ''
+    self.email = ''
+    self.dataOfEntry = datetime.datetime.now()
+    self.certificate = ''
+    self.voivodeships_ids = []
+    self.powiaty_ids = []
+    self.gminy_ids = []
+    self.cities_ids = []
+    self.expiryDate = datetime.datetime.now()
+    self.sources_ids = []
+    self.levels_ids = []
 
   def dict(self):
     return returnDict(self)
