@@ -9,7 +9,7 @@ mydb = myclient["DeafStatistics"]
 from helpers import *
 
 # insertDataFromExcel(polishAreaFileName, mydb, voivodeshipColName)
-# insertDataFromExcel(polishAreaFileName, mydb, powiatyColName)
-# insertDataFromExcel(polishAreaFileName, mydb, gminyColName)
-# insertDataFromExcel(polishAreaFileName, mydb, citiesColName)
+# insertDataFromExcel(polishAreaFileName, mydb, powiatyColName, voivodeshipColName)
+# insertDataFromExcel(polishAreaFileName, mydb, gminyColName, powiatyColName)
+# insertDataFromExcel(polishAreaFileName, mydb, citiesColName, powiatyColName)
 insertTranslatorsDataFromExcel(translatorsFileName, mydb, translatorsColName)

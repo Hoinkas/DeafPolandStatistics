@@ -31,7 +31,7 @@ def insertDataFromExcel(fileName, mydb: Database, collectionName, collectionToFi
   if collectionToFind != None:
     parentCollection = mydb[collectionToFind]
     for v in dfDict:
-      v[headers[3]] = returnObjectIdFromCollectionByName(v[headers[3], parentCollection])
+      v[headers[3]] = returnObjectIdFromCollectionByName(v[headers[3]], parentCollection)
   
   dictList = [mapFunction(collectionName, v, headers).dict() for v in dfDict]
   mydb[collectionName].insert_many(dictList)
@@ -39,9 +39,6 @@ def insertDataFromExcel(fileName, mydb: Database, collectionName, collectionToFi
 def insertTranslatorsDataFromExcel(fileName, mydb: Database, collectionName):
   createDropCollection(mydb, collectionName)
   dfDict, headers = returnDictAndHeadersFromDf(fileName, collectionName)
-
-  # print(headers)
-  # print(dfDict)
 
   for v in dfDict:
     if (pd.isnull(v[headers[1]])): continue
@@ -61,11 +58,12 @@ def insertTranslatorsDataFromExcel(fileName, mydb: Database, collectionName):
   # dictList = [mapFunction(collectionName, v, headers).dict() for v in dfDict]
   # mydb[collectionName].insert_many(dictList)
 
+symbol = '' # Previous symbol to fasten the process of clearing the date
 def clearDate(dateToMap):
   if (isinstance(dateToMap, datetime.datetime)): return dateToMap
 
   clearedDate = dateToMap.replace('r.', '').replace(' ', '').strip()
-  symbol = next(obj for obj in clearedDate if not obj.isdigit())
+  if symbol not in clearedDate: symbol = next(obj for obj in clearedDate if not obj.isdigit())
   date = clearedDate.split(symbol)
 
   return datetime.date(int(date[2]), int(date[1]), int(date[0]))
