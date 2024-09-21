@@ -10,6 +10,9 @@ citiesColName = 'cities'
 translatorsFileName = 'Translators.xlsx'
 translatorsColName = 'translators'
 
+def mapExcelFilePath(fileName):
+  return './Excels/' + fileName
+
 def createDropCollection(mydb, collectionName):
   if collectionName in mydb.list_collection_names():
     mydb[collectionName].drop()
@@ -17,7 +20,8 @@ def createDropCollection(mydb, collectionName):
     mydb.create_collection(collectionName)
 
 def returnObjectIdFromCollectionByName(nameToFind, collection: Collection):
-  object = collection.find_one({'name': nameToFind.replace('[a]', '').replace('m.st. ', '').strip().lower()})
+  nameToFind = nameToFind.replace('[a]', '').replace('m.st. ', '').strip().lower()
+  object = collection.find_one({'name': nameToFind})
   if (object == None): raise Exception("there is no such object as " + nameToFind + " in " + collection.name) 
   
   return str(object['_id'])

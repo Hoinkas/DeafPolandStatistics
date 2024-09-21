@@ -46,8 +46,8 @@ class Gmina(Voivodeship):
     self.population = cleanStringToFloat(population)
   
 class City(Voivodeship):
-  def __init__(self, name, gmina_id, areaKm2, population):
+  def __init__(self, name, powiat_id, areaKm2, population):
     self.name = name.strip().lower()
-    self.gmina_id = gmina_id
+    self.powiat_id = powiat_id
     self.areaKm2 = areaKm2
     self.population = population

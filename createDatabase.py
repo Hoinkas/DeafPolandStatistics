@@ -8,8 +8,15 @@ mydb = myclient["DeafStatistics"]
 
 from helpers import *
 
-# insertDataFromExcel(polishAreaFileName, mydb, voivodeshipColName)
-# insertDataFromExcel(polishAreaFileName, mydb, powiatyColName, voivodeshipColName)
-# insertDataFromExcel(polishAreaFileName, mydb, gminyColName, powiatyColName)
-# insertDataFromExcel(polishAreaFileName, mydb, citiesColName, powiatyColName)
-insertTranslatorsDataFromExcel(translatorsFileName, mydb, translatorsColName)
+fixedPolishAreaFileName = mapExcelFilePath(polishAreaFileName)
+fixedTranslatorsFileName = mapExcelFilePath(translatorsFileName)
+
+insertDataFromExcel(fixedPolishAreaFileName, mydb, voivodeshipColName)
+insertDataFromExcel(fixedPolishAreaFileName, mydb, powiatyColName, voivodeshipColName)
+insertDataFromExcel(fixedPolishAreaFileName, mydb, gminyColName, powiatyColName)
+insertDataFromExcel(fixedPolishAreaFileName, mydb, citiesColName, powiatyColName)
+# for g in list(mydb[gminyColName].find()):
+#   print(g)
+
+symbol = '.' # Previous symbol to fasten the process of cleaning the date
+insertTranslatorsDataFromExcel(fixedTranslatorsFileName, mydb, translatorsColName, symbol)
