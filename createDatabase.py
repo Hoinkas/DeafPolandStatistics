@@ -11,10 +11,10 @@ from helpers import *
 fixedPolishAreaFileName = mapExcelFilePath(polishAreaFileName)
 fixedTranslatorsFileName = mapExcelFilePath(translatorsFileName)
 
-insertDataFromExcel(fixedPolishAreaFileName, mydb, voivodeshipColName)
-insertDataFromExcel(fixedPolishAreaFileName, mydb, powiatyColName, voivodeshipColName)
-insertDataFromExcel(fixedPolishAreaFileName, mydb, gminyColName, powiatyColName)
-insertDataFromExcel(fixedPolishAreaFileName, mydb, citiesColName, powiatyColName)
+# insertDataFromExcel(fixedPolishAreaFileName, mydb, voivodeshipColName)
+# insertDataFromExcel(fixedPolishAreaFileName, mydb, powiatyColName, voivodeshipColName)
+# insertDataFromExcel(fixedPolishAreaFileName, mydb, gminyColName, powiatyColName)
+# insertDataFromExcel(fixedPolishAreaFileName, mydb, citiesColName, powiatyColName)
 # for g in list(mydb[gminyColName].find()):
 #   print(g)
 

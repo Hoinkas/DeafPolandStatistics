@@ -115,7 +115,7 @@ def clearAreas(areas, areasFromDBDict, counter, mydb):
   areasList = re.sub('[^A-Za-z0-9ęąśłżźćńó -]+', ' ', areas.lower())
   areasList = areasList.split(' ')
   areasList = list(filter(None, areasList))
-  areasList = mergeTwoNamesCities(areasList)
+  areasList = mergeTwoNamesCities(areasList, mydb)
 
   areasDict = returnAreasDict(areasList, areasFromDBDict)
   filteredAreasDict = returnFilteredAreasDict(areasDict)
@@ -124,7 +124,7 @@ def clearAreas(areas, areasFromDBDict, counter, mydb):
   else:
     print('-------------------')
     print(areasList)
-    for e in areasDict: print(e['main'], returnNameFromId(e, mydb))
+    for e in areasDict: print(e['main'], returnNameFromId(e, mydb), e)
     raise Exception(areas + ' - not all areas were found: ' + str(len(filteredAreasDict)) + ' instead of ' + str(int(counter)))
 
 def returnDBAreasAsDict(db):
@@ -248,24 +248,16 @@ def returnFilteredAreasDict(areasDict):
 
   return filteredAreasDict
 
-def mergeTwoNamesCities(areasList):
-  listOfMerged = ['tarnowskie góry', 'dąbrowa górnicza', 'ruda śląska', 'piekary śląskie', 'sokołów podlaski']
-  listOfErrored = ['jastrzębie-zdrój']
+def mergeTwoNamesCities(areasList, mydb):
+  listOfTwoPartNames = returnTwoPartNamesFromWholeDB(mydb)
+  # listOfTwoPartNames = ['tarnowskie góry', 'dąbrowa górnicza', 'ruda śląska', 'piekary śląskie', 'sokołów podlaski', 'jastrzębie-zdrój']
   listOfAdditional = ['gminy', 'miasto', 'powiat', 'województwo', 'woj.', 'm', 'st', 'pow', 'miasta']
   listOfChanged = [{'from': 'jastrzębski', 'to': 'jastrzębie-zdrój'}, {'from': 'śląsk', 'to': 'śląskie'}, {'from': 'kraj', 'to': 'polska'}]
 
-  for city in listOfMerged:
-    splittedCity = city.split(' ')
-    if splittedCity[0] in areasList and splittedCity[1] in areasList:
-      areasList.remove(splittedCity[0])
-      areasList.remove(splittedCity[1])
-      areasList.append(city)
-
-  for city in listOfErrored:
-    splittedCity = city.split('-')
-    if splittedCity[0] in areasList and splittedCity[1] in areasList:
-      areasList.remove(splittedCity[0])
-      areasList.remove(splittedCity[1])
+  for city in listOfTwoPartNames:
+    if city[0] in areasList and city[1] in areasList:
+      areasList.remove(city[0])
+      areasList.remove(city[1])
       areasList.append(city)
 
   for city in listOfAdditional:
@@ -278,3 +270,18 @@ def mergeTwoNamesCities(areasList):
       areasList.append(city['to'])
 
   return areasList
+
+def returnTwoPartNamesFromWholeDB(mydb):
+  listOfPartNames = []
+  listOfColNames = [citiesColName, gminyColName, powiatyColName, voivodeshipColName]
+
+  for n in listOfColNames:
+    foundElements = list(mydb[n].find({"name": {'$regex': "[ -]"}}))
+
+    for element in foundElements:
+      name = element['name']
+
+      if ' ' in name: listOfPartNames.append(name.split(' '))
+      if '-' in name: listOfPartNames.append(name.split('-'))
+
+  return listOfPartNames
