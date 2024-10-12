@@ -1,5 +1,5 @@
 import pymongo
-from importExcelToCollections import *
+from src.importExcelToCollections import *
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["DeafStatistics"]
