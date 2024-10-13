@@ -1,12 +1,14 @@
-import pymongo
+import pymongo, os
 from src.importExcelToCollections import *
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+os.environ['MONGO_URI'] = 'mongodb://localhost:27017'
+
+myclient = pymongo.MongoClient(os.environ['MONGO_URI'])
 mydb = myclient["DeafStatistics"]
 
 # Check if the collection exists, create it if it doesn't, delete if it does
 
-from helpers import *
+from src.helpers import *
 
 fixedPolishAreaFileName = mapExcelFilePath(polishAreaFileName)
 fixedTranslatorsFileName = mapExcelFilePath(translatorsFileName)

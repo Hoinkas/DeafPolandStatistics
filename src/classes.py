@@ -1,4 +1,4 @@
-from helpers import *
+from .helpers import *
 import datetime
 
 class Translator():

@@ -1,5 +1,5 @@
 import re
-from enums import Langauages, Levels
+from ..enums import Langauages, Levels
 
 def clearLanguages(languages):
   availableLanguges = [e.value for e in Langauages]

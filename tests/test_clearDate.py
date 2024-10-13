@@ -1,5 +1,5 @@
 import datetime
-from importExcelToCollections import clearDate
+from functions.clearDate import clearDate
 
 class TestClass:
   symbol = '-'

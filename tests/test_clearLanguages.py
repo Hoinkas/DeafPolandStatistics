@@ -1,4 +1,4 @@
-from importExcelToCollections import clearLanguages
+from functions.clearLanguages import clearLanguages
 
 class TestClass:
   symbol = '-'

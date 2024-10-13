@@ -1,11 +1,12 @@
-from classes import City, Gmina, Powiat, Translator, Voivodeship
 from pymongo.database import Database
-from functions.clearDate import clearDate
-from functions.clearNamesAndSurname import clearNamesAndSurname
-from functions.clearLanguages import clearLanguages
-from functions.clearAreas import clearAreas, returnDBAreasAsDict
-from helpers import createDropCollection, returnDictAndHeadersFromDf, returnObjectIdFromCollectionByName, voivodeshipColName, powiatyColName, gminyColName, citiesColName
 import pandas as pd
+
+from .classes import City, Gmina, Powiat, Translator, Voivodeship
+from .functions.clearDate import clearDate
+from .functions.clearNamesAndSurname import clearNamesAndSurname
+from .functions.clearLanguages import clearLanguages
+from .functions.clearAreas import clearAreas, returnDBAreasAsDict
+from .helpers import createDropCollection, returnDictAndHeadersFromDf, returnObjectIdFromCollectionByName, voivodeshipColName, powiatyColName, gminyColName, citiesColName
 
 def mapFunction(collectionName, v, headers):
   name = v[headers[0]]
@@ -59,7 +60,12 @@ def insertTranslatorsDataFromExcel(fileName, mydb: Database, collectionName, sym
     transl.phone = v[headers[3]]
     transl.email = v[headers[4]]
     transl.levels_ids = clearLanguages(v[headers[5]])
-    clearAreas(v[headers[6]], areasFromDBDict, v[headers[8]], mydb)
+
+    try:
+      clearAreas(v[headers[6]], areasFromDBDict, v[headers[8]], mydb)
+    except ValueError as e:
+      print(e)
+      continue
   
   # dictList = [mapFunction(collectionName, v, headers).dict() for v in dfDict]
   # mydb[collectionName].insert_many(dictList)

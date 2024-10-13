@@ -1,6 +1,6 @@
 import re
-from enums import Areas
-from helpers import voivodeshipColName, powiatyColName, gminyColName, citiesColName
+from ..enums import Areas
+from ..helpers import voivodeshipColName, powiatyColName, gminyColName, citiesColName
 
 def clearAreas(areas, areasFromDBDict, counter, mydb):
   areasList = re.sub('[^A-Za-z0-9ęąśłżźćńó -]+', ' ', areas.lower())
@@ -30,8 +30,6 @@ def returnDBAreasAsDict(db):
               citiesColName: [{'_id': str(c['_id']), 'name': c['name'], 'powiat_id': c['powiat_id']} for c in cities]}
   
   return areaDict
-
-
 
 def returnDictFromArea(area, areaType, areasFromDBDict):
   if areaType == Areas.Voivodeship: 
