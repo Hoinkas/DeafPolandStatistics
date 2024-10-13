@@ -11,7 +11,7 @@ translatorsFileName = 'Translators.xlsx'
 translatorsColName = 'translators'
 
 def mapExcelFilePath(fileName):
-  return './Excels/' + fileName
+  return './excels/' + fileName
 
 def createDropCollection(mydb, collectionName):
   if collectionName in mydb.list_collection_names():

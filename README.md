@@ -28,6 +28,7 @@ sudo systemctl start mongod
 ```bash
 sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 systemctl --user restart docker-desktop
+docker compose stop; docker compose rm -f; docker compose pull; docker compose build --no-cache; docker compose up -d
 ```
 
 ## Usage

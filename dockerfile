@@ -1,14 +1,15 @@
 FROM python:3
-ENV PYTHONUNBUFFERED 1
-
-RUN apt-get update -y; apt-get upgrade -y
 
 # Clone the repository
 RUN git clone https://github.com/Hoinkas/DeafPolandStatistics.git
-COPY ./ ./
+
+WORKDIR /home/vscode/DeafPolandStatistics/
 
 # Install Python dependencies
-RUN pip install -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 8000
 
