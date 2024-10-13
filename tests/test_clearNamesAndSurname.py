@@ -1,4 +1,4 @@
-from functions.clearNamesAndSurname import clearNamesAndSurname
+from src.functions.clearNamesAndSurname import clearNamesAndSurname
 
 class TestClass:
   data = [{'input': 'Anna Regina Irasiak', 'output': (['Anna', 'Regina'], 'Irasiak')},

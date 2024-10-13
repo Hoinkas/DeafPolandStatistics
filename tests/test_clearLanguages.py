@@ -1,4 +1,4 @@
-from functions.clearLanguages import clearLanguages
+from src.functions.clearLanguages import clearLanguages
 
 class TestClass:
   symbol = '-'

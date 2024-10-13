@@ -1,5 +1,5 @@
 import datetime
-from functions.clearDate import clearDate
+from src.functions.clearDate import clearDate
 
 class TestClass:
   symbol = '-'

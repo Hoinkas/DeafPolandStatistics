@@ -1,4 +1,4 @@
-from functions.clearAreas import clearAreas, returnDBAreasAsDict
+from src.functions.clearAreas import clearAreas, returnDBAreasAsDict
 
 class TestClass:
   data = [{'input': 'Częstochowa ', 'output': 'Częstochowa ', 'length': 1}]
